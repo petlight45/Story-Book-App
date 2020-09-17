@@ -40,6 +40,6 @@ app.use("/story", require('./routes/story'))
 app.use(function (req,res){
 	render_error(res,404,'/',"Dashboard")
 })
-app.listen(process.env.PORT, process.env.HOST,()=>{
+app.listen(process.env.PORT || 3000,()=>{
     console.log(`server running on ${process.env.NODE_ENV} mode on port ${process.env.PORT}..`)
 })
