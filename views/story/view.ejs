@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= story.title %></title>
+    <%- include('../partials/header_links.ejs') %>
+</head>
+<body>
+    <%- include('../partials/dashboard_header') %>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-12 py-3">
+                <div class="story-header">
+                    <h5 class="d-inline-block py-1 mt-1"><%= story.title %></h5>
+                    <a href="/story/edit/<%= story._id %>" class="text-primary ml-3"><i class="fas fa-edit"></i></a>
+                    <div class="story-dates px-3 d-flex flex-column">
+                        <span class="font-weight-bold">Created: <%= date_parser(story.createdAt, 'MMMM Do YYYY, h:mm:ss a') %></span>
+                        <span class="font-weight-bold">Last Modified: <%= date_parser(story.lastModifiedAt, 'MMMM Do YYYY, h:mm:ss a') %></span>
+                    </div>
+                </div>
+                <div class="divider my-3"></div>
+                <div class="story-content card py-3 px-3">
+                    <%- story.body %>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="card d-flex flex-column align-items-center py-3 position-relaive">
+                    <h6 class="py-2 story-user-name"><%= story.user.displayName %></h6>
+                    <figure class="story-user-img-wrapper">
+                        <img src="<%= story.user.image %>" class="img-fluid" alt="No Image">
+                    </figure>
+                    <div class="divider w-100"></div>
+                    <a class='orange-text text-darken-4 btn-flat mx-0' href="/story/public/<%= user._id %>">more from <%= story.user.firstName %></a>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <%- include('../partials/footer_scripts.ejs') %>
+    <script>
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems);
+    </script>
+</body>
+</html>

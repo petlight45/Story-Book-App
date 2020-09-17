@@ -1,0 +1,10 @@
+.edit-btn{
+    top:-1px;
+    right:-2px;
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.story-title{
+    font-weight: 500 !important;
+}

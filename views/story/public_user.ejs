@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= user.firstName %> Public Stories</title>
+    <%- include('../partials/header_links.ejs') %>
+</head>
+<body>
+    <%- include('../partials/dashboard_header') %>
+    <div class="container">
+        <h6 class="font-weight-bold"><%= user.firstName %> Public Stories</h6>
+        <% if (stories.length) {%>
+            <div class="row">
+                <% for (story of stories) {%>
+                    <div class="col-md-4 col-sm-6 col-12 position-relative">
+                        <% if (user._id.toString() === story.user._id.toString()){ %>
+                            <a href="/story/edit/<%= story._id %>" class="btn-floating d-flex justify-content-center align-items-center halfway-fab waves-effect waves-light blue position-absolute top-0 edit-btn"><i class="material-icons">edit</i></a>
+                        <% } %>
+                        
+                    <div class="card d-flex flex-column align-items-center">
+                
+                        <span class="card-title mt-3 story-title py-1 mb-0 px-3 text-center"><%= story.title %></span>
+                        <div class="card-content mt-1 py-0 mb-0 text-center">
+                        <p><%= content_parser(story.body, 100) %></p>
+                        </div>
+                        <div class="chip mt-3">
+                            <img src="<%= story.user.image %>" alt="">
+                            <a href="#"><%= story.user.displayName %></a>
+                        </div>
+                        <div class="card-action w-100 text-center">
+                        <a class='waves-effect waves-grey grey darken-1 text-white btn-flat mx-0' href="/story/show/<%= story._id %>" >Read More</a>
+                        </div>
+                    </div>
+                    </div>
+                <% } %>
+              </div>
+
+        <% }else{ %>
+            <p>No story to display</p>
+        <% } %>
+    </div>
+    
+    <%- include('../partials/footer_scripts.ejs') %>
+    <script>
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems);
+    </script>
+</body>
+</html>

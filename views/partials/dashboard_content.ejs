@@ -1,0 +1,46 @@
+<div class="container">
+    <h4>Dashboard</h4>
+    <% if (!stories.length){ %>
+        <p>You have not created any stories</p>
+    <% }else{ %>
+        <p>Here are your stories</p>
+        <div class="divider"></div>
+        <div>
+          <table>
+              <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>/</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% stories.forEach(function(story){ %>
+                  <tr>
+                      <td><a href="/story/show/<%= story._id %>"><%= story.title %></a></td>
+                      <td><%= date_parser(story.createdAt, 'MMMM Do YYYY, h:mm:ss a') %></td>
+                      <td><%= story.status %></td>
+                      <td>
+                        <div class="btns-story-wrapper d-flex px-3 py-2">
+                            <a href="/story/edit/<%= story._id %>" class="text-primary"><i class="fas fa-edit"></i></a>
+                            <form action="/story/delete/<%= story._id %>" method="post", class="d-inline">
+                              <input type="hidden" name="_method" value="delete">
+                              <button type="submit" class="ml-5 bg-none text-danger"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </div>
+                      </td>
+                  </tr>
+
+              <% }) %>
+              </tbody>
+            </table> 
+      </div>
+    <% } %>
+
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large red" href="/story/add">
+        <i class="large material-icons waves-effect waves-light">add</i>
+      </a>
+    </div>
+</div>

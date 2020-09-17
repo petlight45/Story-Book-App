@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit</title>
+    <%- include('../partials/header_links.ejs') %>
+</head>
+<body>
+    <%- include('../partials/dashboard_header') %>
+    <div class="container">
+        <h4>Edit Story</h4>
+        <div class="divider mb-3"></div>
+        <form class="px-3" action="/story/edit/<%= story._id %>" method="post">
+            <input type="hidden" name="_method" value="put">
+            <div class="row">
+                <div class="input-field w-100">
+                <input id="title" type="text" name="title" value="<%= story.title %>">
+                <label for="title">Title</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field w-100">
+                    <select name="status" id="status">
+                        <option value="Public" selected>Public</option>
+                        <option value="Private">Private</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field w-100">
+                    <h5>Tell us your story</h5>     
+                    <textarea id="body" name="body" class="story-body"><%= story.body %></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" value="Save" class="btn">
+                <a href="/dashboard" class="btn orange ml-2">Cancel</a>
+            </div>
+        </form>
+
+    </div>
+    <%- include('../partials/footer_scripts.ejs') %>
+    <script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
+    <script>
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems);
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+        ClassicEditor
+        .create( document.querySelector( '#body' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+        document.querySelector('#status').selectedIndex = `${story.status == "Private"}`
+    </script>
+</body>
+</html>
